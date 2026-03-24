@@ -1,0 +1,71 @@
+com.gtismartmoneytrader.app-lifecycle-viewmodel-2.6.2-0 C:\Users\dhara\.gradle\caches\transforms-3\01cf624f6ca1872d3234d94955bd2709\transformed\lifecycle-viewmodel-2.6.2\res
+com.gtismartmoneytrader.app-jetified-material-icons-extended-release-1 C:\Users\dhara\.gradle\caches\transforms-3\04fc6f925549f2641bac2586f67e4479\transformed\jetified-material-icons-extended-release\res
+com.gtismartmoneytrader.app-jetified-lifecycle-process-2.6.2-2 C:\Users\dhara\.gradle\caches\transforms-3\089685cd236b3aa25eecde37f3340170\transformed\jetified-lifecycle-process-2.6.2\res
+com.gtismartmoneytrader.app-jetified-navigation-compose-2.7.5-3 C:\Users\dhara\.gradle\caches\transforms-3\0a92864569defda052389842574c25f1\transformed\jetified-navigation-compose-2.7.5\res
+com.gtismartmoneytrader.app-jetified-firebase-messaging-23.3.1-4 C:\Users\dhara\.gradle\caches\transforms-3\111ba18d6699d6b928a355670f055e0b\transformed\jetified-firebase-messaging-23.3.1\res
+com.gtismartmoneytrader.app-jetified-lifecycle-runtime-compose-2.6.2-5 C:\Users\dhara\.gradle\caches\transforms-3\12180c4d2d0a421d6c652d147e85c2b0\transformed\jetified-lifecycle-runtime-compose-2.6.2\res
+com.gtismartmoneytrader.app-jetified-runtime-saveable-release-6 C:\Users\dhara\.gradle\caches\transforms-3\1370fd051de47a6d0cd8d475f839cd3b\transformed\jetified-runtime-saveable-release\res
+com.gtismartmoneytrader.app-jetified-datastore-1.0.0-7 C:\Users\dhara\.gradle\caches\transforms-3\13b521d4a2e0442eb7fdde56403bd107\transformed\jetified-datastore-1.0.0\res
+com.gtismartmoneytrader.app-jetified-annotation-experimental-1.3.1-8 C:\Users\dhara\.gradle\caches\transforms-3\148c41379b6911f669fb5932d108924f\transformed\jetified-annotation-experimental-1.3.1\res
+com.gtismartmoneytrader.app-jetified-savedstate-ktx-1.2.1-9 C:\Users\dhara\.gradle\caches\transforms-3\18e472335de9e29dfdbed862012ecdf0\transformed\jetified-savedstate-ktx-1.2.1\res
+com.gtismartmoneytrader.app-jetified-material-release-10 C:\Users\dhara\.gradle\caches\transforms-3\1d32a0574ff07cc83d1b61a4116ca719\transformed\jetified-material-release\res
+com.gtismartmoneytrader.app-room-runtime-2.6.1-11 C:\Users\dhara\.gradle\caches\transforms-3\1fb2862ddb1c9f6573bacba2f8331637\transformed\room-runtime-2.6.1\res
+com.gtismartmoneytrader.app-jetified-lifecycle-viewmodel-compose-2.6.2-12 C:\Users\dhara\.gradle\caches\transforms-3\26b4407ae1c354a5640dcc392653a379\transformed\jetified-lifecycle-viewmodel-compose-2.6.2\res
+com.gtismartmoneytrader.app-core-1.12.0-13 C:\Users\dhara\.gradle\caches\transforms-3\2752542aa402f878003bef1a2775b047\transformed\core-1.12.0\res
+com.gtismartmoneytrader.app-jetified-savedstate-1.2.1-14 C:\Users\dhara\.gradle\caches\transforms-3\28cd60e3ed85a8895dd93df3f1802147\transformed\jetified-savedstate-1.2.1\res
+com.gtismartmoneytrader.app-jetified-datastore-preferences-1.0.0-15 C:\Users\dhara\.gradle\caches\transforms-3\2ff73012f738c23cd20fa3bf033f6bbc\transformed\jetified-datastore-preferences-1.0.0\res
+com.gtismartmoneytrader.app-jetified-play-services-basement-18.1.0-16 C:\Users\dhara\.gradle\caches\transforms-3\32ae190f2e00dea4a18f1f55a2d85c99\transformed\jetified-play-services-basement-18.1.0\res
+com.gtismartmoneytrader.app-jetified-lifecycle-viewmodel-ktx-2.6.2-17 C:\Users\dhara\.gradle\caches\transforms-3\39951f895530105afe9e4a5653216e3d\transformed\jetified-lifecycle-viewmodel-ktx-2.6.2\res
+com.gtismartmoneytrader.app-jetified-play-services-measurement-api-21.5.0-18 C:\Users\dhara\.gradle\caches\transforms-3\42454b3b84006c1cd805580f077096ef\transformed\jetified-play-services-measurement-api-21.5.0\res
+com.gtismartmoneytrader.app-sqlite-framework-2.4.0-19 C:\Users\dhara\.gradle\caches\transforms-3\4a27b81bc89945ef7eeef8dd1dbe57e7\transformed\sqlite-framework-2.4.0\res
+com.gtismartmoneytrader.app-jetified-foundation-layout-release-20 C:\Users\dhara\.gradle\caches\transforms-3\4aae19526da33c12bfba736f1ba12c02\transformed\jetified-foundation-layout-release\res
+com.gtismartmoneytrader.app-jetified-ui-unit-release-21 C:\Users\dhara\.gradle\caches\transforms-3\4f969f719c77fe08b5e4124d118f1208\transformed\jetified-ui-unit-release\res
+com.gtismartmoneytrader.app-jetified-lifecycle-runtime-ktx-2.6.2-22 C:\Users\dhara\.gradle\caches\transforms-3\57c014653b897784a97309130aad828b\transformed\jetified-lifecycle-runtime-ktx-2.6.2\res
+com.gtismartmoneytrader.app-jetified-core-ktx-1.12.0-23 C:\Users\dhara\.gradle\caches\transforms-3\5a1ed0a7e9d65dfbea9969826f865023\transformed\jetified-core-ktx-1.12.0\res
+com.gtismartmoneytrader.app-jetified-activity-ktx-1.8.1-24 C:\Users\dhara\.gradle\caches\transforms-3\62e2dc290487c48958766a0724f68b40\transformed\jetified-activity-ktx-1.8.1\res
+com.gtismartmoneytrader.app-jetified-runtime-release-25 C:\Users\dhara\.gradle\caches\transforms-3\64925fa364103cbb9100d0c61e5cf9ae\transformed\jetified-runtime-release\res
+com.gtismartmoneytrader.app-jetified-ads-adservices-1.0.0-beta05-26 C:\Users\dhara\.gradle\caches\transforms-3\653bfb2e8cf22a4371f3dcb0d4d0748f\transformed\jetified-ads-adservices-1.0.0-beta05\res
+com.gtismartmoneytrader.app-jetified-hilt-navigation-1.1.0-27 C:\Users\dhara\.gradle\caches\transforms-3\656a209651f3d121395a7fe86170c320\transformed\jetified-hilt-navigation-1.1.0\res
+com.gtismartmoneytrader.app-lifecycle-runtime-2.6.2-28 C:\Users\dhara\.gradle\caches\transforms-3\69d527aec94866ea8654f4cc998d877d\transformed\lifecycle-runtime-2.6.2\res
+com.gtismartmoneytrader.app-lifecycle-livedata-core-2.6.2-29 C:\Users\dhara\.gradle\caches\transforms-3\6a1e862af3653d2d2db4fe381420b6fc\transformed\lifecycle-livedata-core-2.6.2\res
+com.gtismartmoneytrader.app-jetified-emoji2-1.4.0-30 C:\Users\dhara\.gradle\caches\transforms-3\6b532fe5ab17cfe053853154d09816a6\transformed\jetified-emoji2-1.4.0\res
+com.gtismartmoneytrader.app-navigation-runtime-ktx-2.7.5-31 C:\Users\dhara\.gradle\caches\transforms-3\6d07391fdb8d19c377258045dc64806a\transformed\navigation-runtime-ktx-2.7.5\res
+com.gtismartmoneytrader.app-jetified-ui-tooling-preview-release-32 C:\Users\dhara\.gradle\caches\transforms-3\6d976dfc0ba17b81f9b51f4f352f7e9e\transformed\jetified-ui-tooling-preview-release\res
+com.gtismartmoneytrader.app-jetified-ui-test-manifest-1.5.4-33 C:\Users\dhara\.gradle\caches\transforms-3\6fbc599f5670c2187d9ded15b63378d2\transformed\jetified-ui-test-manifest-1.5.4\res
+com.gtismartmoneytrader.app-lifecycle-livedata-2.6.2-34 C:\Users\dhara\.gradle\caches\transforms-3\7788d67e592a47c9128cef207a7ef520\transformed\lifecycle-livedata-2.6.2\res
+com.gtismartmoneytrader.app-jetified-ui-util-release-35 C:\Users\dhara\.gradle\caches\transforms-3\7a42427f2dfbb5496f90d88b7f263dfe\transformed\jetified-ui-util-release\res
+com.gtismartmoneytrader.app-jetified-material-ripple-release-36 C:\Users\dhara\.gradle\caches\transforms-3\7bfe9628f027e2aad1f6ce77d28e29a8\transformed\jetified-material-ripple-release\res
+com.gtismartmoneytrader.app-navigation-runtime-2.7.5-37 C:\Users\dhara\.gradle\caches\transforms-3\7c6c3d2a480b2c92154086800aa5f8a9\transformed\navigation-runtime-2.7.5\res
+com.gtismartmoneytrader.app-jetified-material3-1.1.2-38 C:\Users\dhara\.gradle\caches\transforms-3\7e3552798eb70a13408a82a13f9e4c5b\transformed\jetified-material3-1.1.2\res
+com.gtismartmoneytrader.app-jetified-firebase-common-20.4.2-39 C:\Users\dhara\.gradle\caches\transforms-3\82136772c26ae77601a22d49a8d2d4a0\transformed\jetified-firebase-common-20.4.2\res
+com.gtismartmoneytrader.app-jetified-play-services-base-18.0.1-40 C:\Users\dhara\.gradle\caches\transforms-3\8dd5063edbd1d4f80cc2dc65a9178481\transformed\jetified-play-services-base-18.0.1\res
+com.gtismartmoneytrader.app-jetified-ui-release-41 C:\Users\dhara\.gradle\caches\transforms-3\8de4dc079a51945b232649092dad668d\transformed\jetified-ui-release\res
+com.gtismartmoneytrader.app-jetified-lifecycle-viewmodel-savedstate-2.6.2-42 C:\Users\dhara\.gradle\caches\transforms-3\9002ae7867e8688a7048e56149e7b8be\transformed\jetified-lifecycle-viewmodel-savedstate-2.6.2\res
+com.gtismartmoneytrader.app-jetified-animation-release-43 C:\Users\dhara\.gradle\caches\transforms-3\90865c0c6d850315daa6e20511b15a6d\transformed\jetified-animation-release\res
+com.gtismartmoneytrader.app-jetified-ads-adservices-java-1.0.0-beta05-44 C:\Users\dhara\.gradle\caches\transforms-3\90d1bbd51682369348e0f4f7a8c23a90\transformed\jetified-ads-adservices-java-1.0.0-beta05\res
+com.gtismartmoneytrader.app-jetified-customview-poolingcontainer-1.0.0-45 C:\Users\dhara\.gradle\caches\transforms-3\999c21c07ff48c02f3a9fd09596bafe0\transformed\jetified-customview-poolingcontainer-1.0.0\res
+com.gtismartmoneytrader.app-jetified-ui-graphics-release-46 C:\Users\dhara\.gradle\caches\transforms-3\9e31ba78ed099f944f06ecf82fa6b757\transformed\jetified-ui-graphics-release\res
+com.gtismartmoneytrader.app-jetified-hilt-navigation-compose-1.1.0-47 C:\Users\dhara\.gradle\caches\transforms-3\b3a6a5fc73dc2438eb5fd5197e6beca5\transformed\jetified-hilt-navigation-compose-1.1.0\res
+com.gtismartmoneytrader.app-jetified-activity-compose-1.8.1-48 C:\Users\dhara\.gradle\caches\transforms-3\b89e2c885f503b25498c49ea4c6a75cd\transformed\jetified-activity-compose-1.8.1\res
+com.gtismartmoneytrader.app-navigation-common-ktx-2.7.5-49 C:\Users\dhara\.gradle\caches\transforms-3\b957754fe769ec4800cbf507ac648000\transformed\navigation-common-ktx-2.7.5\res
+com.gtismartmoneytrader.app-jetified-ui-geometry-release-50 C:\Users\dhara\.gradle\caches\transforms-3\ba8d0fa0080503b7bdac764b811475e2\transformed\jetified-ui-geometry-release\res
+com.gtismartmoneytrader.app-jetified-ui-tooling-release-51 C:\Users\dhara\.gradle\caches\transforms-3\bf36fcbb730ec41b43b9e974603c0be4\transformed\jetified-ui-tooling-release\res
+com.gtismartmoneytrader.app-jetified-room-ktx-2.6.1-52 C:\Users\dhara\.gradle\caches\transforms-3\c449b06f78b4e8d5d14769e1e3dd13e3\transformed\jetified-room-ktx-2.6.1\res
+com.gtismartmoneytrader.app-fragment-1.5.1-53 C:\Users\dhara\.gradle\caches\transforms-3\ccbed9b8c8e5f516de884878a58af452\transformed\fragment-1.5.1\res
+com.gtismartmoneytrader.app-jetified-startup-runtime-1.1.1-54 C:\Users\dhara\.gradle\caches\transforms-3\d140c001f2b1cfb7f263ca4950243f20\transformed\jetified-startup-runtime-1.1.1\res
+com.gtismartmoneytrader.app-navigation-common-2.7.5-55 C:\Users\dhara\.gradle\caches\transforms-3\d223267b5db81d81e6bfddce74612b74\transformed\navigation-common-2.7.5\res
+com.gtismartmoneytrader.app-jetified-foundation-release-56 C:\Users\dhara\.gradle\caches\transforms-3\d82c5297201cc1f633ad32d28d524844\transformed\jetified-foundation-release\res
+com.gtismartmoneytrader.app-jetified-ui-tooling-data-release-57 C:\Users\dhara\.gradle\caches\transforms-3\da396d66f04a67f2ecd76d991dc661e4\transformed\jetified-ui-tooling-data-release\res
+com.gtismartmoneytrader.app-jetified-ui-text-release-58 C:\Users\dhara\.gradle\caches\transforms-3\dc6b4b736b7157f2a2e76fdbc6f6d25a\transformed\jetified-ui-text-release\res
+com.gtismartmoneytrader.app-jetified-material-icons-core-release-59 C:\Users\dhara\.gradle\caches\transforms-3\e0c57b7f2582e7c2029c9e6ca5900fdd\transformed\jetified-material-icons-core-release\res
+com.gtismartmoneytrader.app-jetified-animation-core-release-60 C:\Users\dhara\.gradle\caches\transforms-3\e234ee0bf346927a1f8a725c7330f1ea\transformed\jetified-animation-core-release\res
+com.gtismartmoneytrader.app-sqlite-2.4.0-61 C:\Users\dhara\.gradle\caches\transforms-3\e7c36af57c1a5b40bbb8c74d4860d618\transformed\sqlite-2.4.0\res
+com.gtismartmoneytrader.app-jetified-profileinstaller-1.3.0-62 C:\Users\dhara\.gradle\caches\transforms-3\ec52ac21ce79887caeb82ceafce15596\transformed\jetified-profileinstaller-1.3.0\res
+com.gtismartmoneytrader.app-core-runtime-2.2.0-63 C:\Users\dhara\.gradle\caches\transforms-3\fa778b2093efc1229c2bac0726e12457\transformed\core-runtime-2.2.0\res
+com.gtismartmoneytrader.app-jetified-activity-1.8.1-64 C:\Users\dhara\.gradle\caches\transforms-3\fb52ee709c079670b89f2eb04d955f94\transformed\jetified-activity-1.8.1\res
+com.gtismartmoneytrader.app-resValues-65 C:\Users\dhara\Sensex scanner\gTIOptions_trader\android\app\build\generated\res\resValues\debug
+com.gtismartmoneytrader.app-packageDebugResources-66 C:\Users\dhara\Sensex scanner\gTIOptions_trader\android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.gtismartmoneytrader.app-packageDebugResources-67 C:\Users\dhara\Sensex scanner\gTIOptions_trader\android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.gtismartmoneytrader.app-debug-68 C:\Users\dhara\Sensex scanner\gTIOptions_trader\android\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.gtismartmoneytrader.app-debug-69 C:\Users\dhara\Sensex scanner\gTIOptions_trader\android\app\src\debug\res
+com.gtismartmoneytrader.app-main-70 C:\Users\dhara\Sensex scanner\gTIOptions_trader\android\app\src\main\res

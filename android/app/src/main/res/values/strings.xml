@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GTI Smart Money Trader</string>
+    <string name="home">Home</string>
+    <string name="signals">Signals</string>
+    <string name="settings">Settings</string>
+    <string name="nifty">NIFTY</string>
+    <string name="banknifty">BANKNIFTY</string>
+    <string name="buy_call">BUY CALL</string>
+    <string name="buy_put">BUY PUT</string>
+    <string name="signal_confirmed">Signal Confirmed</string>
+    <string name="smart_money_detected">Smart Money Detected</string>
+    <string name="trending">Trending</string>
+    <string name="sideways">Sideways</string>
+    <string name="trading_window_open">Trading Window Open</string>
+    <string name="outside_trading_hours">Outside Trading Hours</string>
+    <string name="entry">Entry</string>
+    <string name="stop_loss">Stop Loss</string>
+    <string name="target">Target</string>
+    <string name="confidence">Confidence</string>
+    <string name="high">HIGH</string>
+    <string name="medium">MEDIUM</string>
+    <string name="low">LOW</string>
+    <string name="strike">Strike</string>
+    <string name="ltp">LTP</string>
+    <string name="delta">Delta</string>
+    <string name="iv">IV</string>
+    <string name="expiry">Expiry</string>
+    <string name="weekly">Weekly</string>
+    <string name="risk_reward">Risk:Reward</string>
+    <string name="win_rate">Win Rate</string>
+    <string name="total_trades">Total Trades</string>
+    <string name="profit_loss">Profit/Loss</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="low_volatility_signals_paused">Low Volatility - Signals Paused</string>
+    <string name="sideways_market_signals_paused">Sideways Market - Signals Paused</string>
+    <string name="disclaimer_title">Risk Disclaimer</string>
+    <string name="disclaimer_text">This app provides trading signals for informational purposes only. It does not constitute financial advice. Trading in options involves substantial risk of loss. Users are solely responsible for their trading decisions.</string>
+</resources>
