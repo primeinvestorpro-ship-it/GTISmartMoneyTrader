@@ -4,6 +4,7 @@ import com.gtismartmoneytrader.data.service.GTIFCMService_GeneratedInjector;
 import com.gtismartmoneytrader.data.service.GTIMarketDataService_GeneratedInjector;
 import com.gtismartmoneytrader.di.AppModule;
 import com.gtismartmoneytrader.presentation.MainActivity_GeneratedInjector;
+import com.gtismartmoneytrader.presentation.viewmodel.BacktestViewModel_HiltModules;
 import com.gtismartmoneytrader.presentation.viewmodel.HomeViewModel_HiltModules;
 import dagger.Binds;
 import dagger.Component;
@@ -158,6 +159,7 @@ public final class GTIApplication_HiltComponents {
 
   @Subcomponent(
       modules = {
+          BacktestViewModel_HiltModules.KeyModule.class,
           ActivityCBuilderModule.class,
           ViewModelCBuilderModule.class,
           HiltWrapper_ActivityRetainedComponentManager_LifecycleModule.class,
@@ -198,6 +200,7 @@ public final class GTIApplication_HiltComponents {
 
   @Subcomponent(
       modules = {
+          BacktestViewModel_HiltModules.BindsModule.class,
           HiltWrapper_HiltViewModelFactory_ViewModelModule.class,
           HomeViewModel_HiltModules.BindsModule.class
       }

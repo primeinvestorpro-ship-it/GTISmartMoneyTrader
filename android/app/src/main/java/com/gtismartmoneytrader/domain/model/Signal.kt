@@ -5,6 +5,23 @@ enum class SignalType {
     BUY_PUT
 }
 
+enum class MomentumStrength { LOW, MEDIUM, HIGH }
+
+enum class MarketBias { BULLISH, BEARISH, NEUTRAL }
+
+enum class FusionAction {
+    OPTION_BUY,       // Strong GTI trend – buy call/put
+    SELL_STRADDLE,    // Low trend + high IV – sell straddle
+    AVOID_CONFLICT,   // Conflicting signals – stay out
+    NO_TRADE          // No clear setup
+}
+
+enum class MarketMode {
+    TRENDING,         // GTI strong signal active
+    NEUTRAL,          // Range bound, straddle territory
+    VOLATILE          // Conflicting / unpredictable
+}
+
 enum class ConfidenceLevel {
     HIGH,
     MEDIUM,
@@ -15,6 +32,7 @@ enum class MarketStatus {
     TRENDING,
     SIDEWAYS
 }
+
 
 enum class TradingStatus {
     OPEN,      // Within allowed trading hours

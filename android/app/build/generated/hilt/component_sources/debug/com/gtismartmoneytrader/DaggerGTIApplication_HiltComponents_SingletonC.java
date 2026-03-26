@@ -20,9 +20,11 @@ import com.gtismartmoneytrader.data.service.GTIFCMService;
 import com.gtismartmoneytrader.data.service.GTIMarketDataService;
 import com.gtismartmoneytrader.data.service.GTIMarketDataService_MembersInjector;
 import com.gtismartmoneytrader.di.AppModule_ProvideApiServiceFactory;
+import com.gtismartmoneytrader.di.AppModule_ProvideBacktestEngineFactory;
 import com.gtismartmoneytrader.di.AppModule_ProvideCandleDaoFactory;
 import com.gtismartmoneytrader.di.AppModule_ProvideDatabaseFactory;
 import com.gtismartmoneytrader.di.AppModule_ProvideFakeSignalFilterFactory;
+import com.gtismartmoneytrader.di.AppModule_ProvideFusionAIEngineFactory;
 import com.gtismartmoneytrader.di.AppModule_ProvideGTIIndicatorEngineFactory;
 import com.gtismartmoneytrader.di.AppModule_ProvideOkHttpClientFactory;
 import com.gtismartmoneytrader.di.AppModule_ProvideOptionSuggestionEngineFactory;
@@ -32,13 +34,19 @@ import com.gtismartmoneytrader.di.AppModule_ProvideRiskManagementEngineFactory;
 import com.gtismartmoneytrader.di.AppModule_ProvideSettingDaoFactory;
 import com.gtismartmoneytrader.di.AppModule_ProvideSignalDaoFactory;
 import com.gtismartmoneytrader.di.AppModule_ProvideSignalGeneratorEngineFactory;
+import com.gtismartmoneytrader.di.AppModule_ProvideStraddleEngineFactory;
 import com.gtismartmoneytrader.di.AppModule_ProvideTradeDaoFactory;
+import com.gtismartmoneytrader.domain.engine.BacktestEngine;
 import com.gtismartmoneytrader.domain.engine.FakeSignalFilter;
+import com.gtismartmoneytrader.domain.engine.FusionAIEngine;
 import com.gtismartmoneytrader.domain.engine.GTIIndicatorEngine;
 import com.gtismartmoneytrader.domain.engine.OptionSuggestionEngine;
 import com.gtismartmoneytrader.domain.engine.RiskManagementEngine;
 import com.gtismartmoneytrader.domain.engine.SignalGeneratorEngine;
+import com.gtismartmoneytrader.domain.engine.StraddleEngine;
 import com.gtismartmoneytrader.presentation.MainActivity;
+import com.gtismartmoneytrader.presentation.viewmodel.BacktestViewModel;
+import com.gtismartmoneytrader.presentation.viewmodel.BacktestViewModel_HiltModules_KeyModule_ProvideFactory;
 import com.gtismartmoneytrader.presentation.viewmodel.HomeViewModel;
 import com.gtismartmoneytrader.presentation.viewmodel.HomeViewModel_HiltModules_KeyModule_ProvideFactory;
 import dagger.hilt.android.ActivityRetainedLifecycle;
@@ -397,7 +405,7 @@ public final class DaggerGTIApplication_HiltComponents_SingletonC {
 
     @Override
     public Set<String> getViewModelKeys() {
-      return ImmutableSet.<String>of(HomeViewModel_HiltModules_KeyModule_ProvideFactory.provide());
+      return ImmutableSet.<String>of(BacktestViewModel_HiltModules_KeyModule_ProvideFactory.provide(), HomeViewModel_HiltModules_KeyModule_ProvideFactory.provide());
     }
 
     @Override
@@ -423,6 +431,8 @@ public final class DaggerGTIApplication_HiltComponents_SingletonC {
 
     private final ViewModelCImpl viewModelCImpl = this;
 
+    private Provider<BacktestViewModel> backtestViewModelProvider;
+
     private Provider<HomeViewModel> homeViewModelProvider;
 
     private ViewModelCImpl(SingletonCImpl singletonCImpl,
@@ -438,12 +448,13 @@ public final class DaggerGTIApplication_HiltComponents_SingletonC {
     @SuppressWarnings("unchecked")
     private void initialize(final SavedStateHandle savedStateHandleParam,
         final ViewModelLifecycle viewModelLifecycleParam) {
-      this.homeViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 0);
+      this.backtestViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 0);
+      this.homeViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 1);
     }
 
     @Override
     public Map<String, javax.inject.Provider<ViewModel>> getHiltViewModelMap() {
-      return ImmutableMap.<String, javax.inject.Provider<ViewModel>>of("com.gtismartmoneytrader.presentation.viewmodel.HomeViewModel", ((Provider) homeViewModelProvider));
+      return ImmutableMap.<String, javax.inject.Provider<ViewModel>>of("com.gtismartmoneytrader.presentation.viewmodel.BacktestViewModel", ((Provider) backtestViewModelProvider), "com.gtismartmoneytrader.presentation.viewmodel.HomeViewModel", ((Provider) homeViewModelProvider));
     }
 
     @Override
@@ -472,8 +483,11 @@ public final class DaggerGTIApplication_HiltComponents_SingletonC {
       @Override
       public T get() {
         switch (id) {
-          case 0: // com.gtismartmoneytrader.presentation.viewmodel.HomeViewModel 
-          return (T) new HomeViewModel(singletonCImpl.provideRepositoryProvider.get(), singletonCImpl.provideGTIIndicatorEngineProvider.get(), singletonCImpl.provideSignalGeneratorEngineProvider.get(), singletonCImpl.provideFakeSignalFilterProvider.get(), singletonCImpl.provideRiskManagementEngineProvider.get(), singletonCImpl.provideOptionSuggestionEngineProvider.get());
+          case 0: // com.gtismartmoneytrader.presentation.viewmodel.BacktestViewModel 
+          return (T) new BacktestViewModel(singletonCImpl.provideRepositoryProvider.get(), singletonCImpl.provideBacktestEngineProvider.get());
+
+          case 1: // com.gtismartmoneytrader.presentation.viewmodel.HomeViewModel 
+          return (T) new HomeViewModel(singletonCImpl.provideRepositoryProvider.get(), singletonCImpl.provideGTIIndicatorEngineProvider.get(), singletonCImpl.provideSignalGeneratorEngineProvider.get(), singletonCImpl.provideFakeSignalFilterProvider.get(), singletonCImpl.provideRiskManagementEngineProvider.get(), singletonCImpl.provideOptionSuggestionEngineProvider.get(), singletonCImpl.provideStraddleEngineProvider.get(), singletonCImpl.provideFusionAIEngineProvider.get());
 
           default: throw new AssertionError(id);
         }
@@ -592,11 +606,17 @@ public final class DaggerGTIApplication_HiltComponents_SingletonC {
 
     private Provider<SignalGeneratorEngine> provideSignalGeneratorEngineProvider;
 
+    private Provider<StraddleEngine> provideStraddleEngineProvider;
+
+    private Provider<BacktestEngine> provideBacktestEngineProvider;
+
     private Provider<FakeSignalFilter> provideFakeSignalFilterProvider;
 
     private Provider<RiskManagementEngine> provideRiskManagementEngineProvider;
 
     private Provider<OptionSuggestionEngine> provideOptionSuggestionEngineProvider;
+
+    private Provider<FusionAIEngine> provideFusionAIEngineProvider;
 
     private SingletonCImpl(ApplicationContextModule applicationContextModuleParam) {
       this.applicationContextModule = applicationContextModuleParam;
@@ -615,11 +635,14 @@ public final class DaggerGTIApplication_HiltComponents_SingletonC {
       this.provideSettingDaoProvider = DoubleCheck.provider(new SwitchingProvider<SettingDao>(singletonCImpl, 7));
       this.provideCandleDaoProvider = DoubleCheck.provider(new SwitchingProvider<CandleDao>(singletonCImpl, 8));
       this.provideRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<GTIRepository>(singletonCImpl, 0));
-      this.provideGTIIndicatorEngineProvider = DoubleCheck.provider(new SwitchingProvider<GTIIndicatorEngine>(singletonCImpl, 9));
-      this.provideSignalGeneratorEngineProvider = DoubleCheck.provider(new SwitchingProvider<SignalGeneratorEngine>(singletonCImpl, 10));
-      this.provideFakeSignalFilterProvider = DoubleCheck.provider(new SwitchingProvider<FakeSignalFilter>(singletonCImpl, 11));
-      this.provideRiskManagementEngineProvider = DoubleCheck.provider(new SwitchingProvider<RiskManagementEngine>(singletonCImpl, 12));
-      this.provideOptionSuggestionEngineProvider = DoubleCheck.provider(new SwitchingProvider<OptionSuggestionEngine>(singletonCImpl, 13));
+      this.provideGTIIndicatorEngineProvider = DoubleCheck.provider(new SwitchingProvider<GTIIndicatorEngine>(singletonCImpl, 10));
+      this.provideSignalGeneratorEngineProvider = DoubleCheck.provider(new SwitchingProvider<SignalGeneratorEngine>(singletonCImpl, 11));
+      this.provideStraddleEngineProvider = DoubleCheck.provider(new SwitchingProvider<StraddleEngine>(singletonCImpl, 12));
+      this.provideBacktestEngineProvider = DoubleCheck.provider(new SwitchingProvider<BacktestEngine>(singletonCImpl, 9));
+      this.provideFakeSignalFilterProvider = DoubleCheck.provider(new SwitchingProvider<FakeSignalFilter>(singletonCImpl, 13));
+      this.provideRiskManagementEngineProvider = DoubleCheck.provider(new SwitchingProvider<RiskManagementEngine>(singletonCImpl, 14));
+      this.provideOptionSuggestionEngineProvider = DoubleCheck.provider(new SwitchingProvider<OptionSuggestionEngine>(singletonCImpl, 15));
+      this.provideFusionAIEngineProvider = DoubleCheck.provider(new SwitchingProvider<FusionAIEngine>(singletonCImpl, 16));
     }
 
     @Override
@@ -682,20 +705,29 @@ public final class DaggerGTIApplication_HiltComponents_SingletonC {
           case 8: // com.gtismartmoneytrader.data.local.dao.CandleDao 
           return (T) AppModule_ProvideCandleDaoFactory.provideCandleDao(singletonCImpl.provideDatabaseProvider.get());
 
-          case 9: // com.gtismartmoneytrader.domain.engine.GTIIndicatorEngine 
+          case 9: // com.gtismartmoneytrader.domain.engine.BacktestEngine 
+          return (T) AppModule_ProvideBacktestEngineFactory.provideBacktestEngine(singletonCImpl.provideGTIIndicatorEngineProvider.get(), singletonCImpl.provideSignalGeneratorEngineProvider.get(), singletonCImpl.provideStraddleEngineProvider.get());
+
+          case 10: // com.gtismartmoneytrader.domain.engine.GTIIndicatorEngine 
           return (T) AppModule_ProvideGTIIndicatorEngineFactory.provideGTIIndicatorEngine();
 
-          case 10: // com.gtismartmoneytrader.domain.engine.SignalGeneratorEngine 
+          case 11: // com.gtismartmoneytrader.domain.engine.SignalGeneratorEngine 
           return (T) AppModule_ProvideSignalGeneratorEngineFactory.provideSignalGeneratorEngine(singletonCImpl.provideGTIIndicatorEngineProvider.get());
 
-          case 11: // com.gtismartmoneytrader.domain.engine.FakeSignalFilter 
+          case 12: // com.gtismartmoneytrader.domain.engine.StraddleEngine 
+          return (T) AppModule_ProvideStraddleEngineFactory.provideStraddleEngine(singletonCImpl.provideGTIIndicatorEngineProvider.get());
+
+          case 13: // com.gtismartmoneytrader.domain.engine.FakeSignalFilter 
           return (T) AppModule_ProvideFakeSignalFilterFactory.provideFakeSignalFilter(singletonCImpl.provideGTIIndicatorEngineProvider.get());
 
-          case 12: // com.gtismartmoneytrader.domain.engine.RiskManagementEngine 
+          case 14: // com.gtismartmoneytrader.domain.engine.RiskManagementEngine 
           return (T) AppModule_ProvideRiskManagementEngineFactory.provideRiskManagementEngine();
 
-          case 13: // com.gtismartmoneytrader.domain.engine.OptionSuggestionEngine 
+          case 15: // com.gtismartmoneytrader.domain.engine.OptionSuggestionEngine 
           return (T) AppModule_ProvideOptionSuggestionEngineFactory.provideOptionSuggestionEngine();
+
+          case 16: // com.gtismartmoneytrader.domain.engine.FusionAIEngine 
+          return (T) AppModule_ProvideFusionAIEngineFactory.provideFusionAIEngine();
 
           default: throw new AssertionError(id);
         }

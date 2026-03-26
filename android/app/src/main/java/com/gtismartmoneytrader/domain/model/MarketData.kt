@@ -2,7 +2,8 @@ package com.gtismartmoneytrader.domain.model
 
 enum class Symbol(val displayName: String, val exchange: String, val token: String) {
     NIFTY("NIFTY", "NSE", "26000"),
-    BANKNIFTY("BANKNIFTY", "NSE", "26001")
+    BANKNIFTY("BANKNIFTY", "NSE", "26001"),
+    FINNIFTY("FINNIFTY", "NSE", "26037")
 }
 
 data class MarketData(
@@ -13,7 +14,11 @@ data class MarketData(
     val volume: Long,
     val atr: Double,
     val change: Double,
-    val changePercent: Double
+    val changePercent: Double,
+    val ivPercentile: Double? = null,
+    val historicalVolatility: Double? = null,
+    val atmCallLtp: Double? = null,
+    val atmPutLtp: Double? = null
 )
 
 data class OptionData(

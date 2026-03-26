@@ -19,6 +19,7 @@ class OptionSuggestionEngine @Inject constructor() {
         val lotSize = when (symbol) {
             Symbol.NIFTY -> NIFTY_LOT_SIZE
             Symbol.BANKNIFTY -> BANKNIFTY_LOT_SIZE
+            Symbol.FINNIFTY -> 40
         }
 
         // Round to nearest lot size
@@ -31,6 +32,7 @@ class OptionSuggestionEngine @Inject constructor() {
         val strikeDistance = when (symbol) {
             Symbol.NIFTY -> MINIMUM_STRIKE_DISTANCE
             Symbol.BANKNIFTY -> MINIMUM_STRIKE_DISTANCE * 2
+            Symbol.FINNIFTY -> MINIMUM_STRIKE_DISTANCE / 2
         }
         
         return atmStrike - (stepsAway * strikeDistance)
@@ -40,6 +42,7 @@ class OptionSuggestionEngine @Inject constructor() {
         val strikeDistance = when (symbol) {
             Symbol.NIFTY -> MINIMUM_STRIKE_DISTANCE
             Symbol.BANKNIFTY -> MINIMUM_STRIKE_DISTANCE * 2
+            Symbol.FINNIFTY -> MINIMUM_STRIKE_DISTANCE / 2
         }
         
         return atmStrike + (stepsAway * strikeDistance)

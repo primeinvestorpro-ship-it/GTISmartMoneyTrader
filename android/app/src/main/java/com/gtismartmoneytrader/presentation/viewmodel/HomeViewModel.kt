@@ -20,7 +20,12 @@ data class HomeUiState(
     val tradingStatus: TradingStatus = TradingStatus.CLOSED,
     val filterMessage: String? = null,
     val isLoading: Boolean = false,
-    val error: String? = null
+    val error: String? = null,
+    // === NEW Fusion + Straddle state ===
+    val fusionDecision: FusionDecision? = null,
+    val straddleResult: StraddleResult? = null,
+    val marketMode: MarketMode = MarketMode.NEUTRAL,
+    val adx: Double = 0.0
 )
 
 @HiltViewModel
@@ -30,7 +35,10 @@ class HomeViewModel @Inject constructor(
     private val signalGenerator: SignalGeneratorEngine,
     private val fakeSignalFilter: FakeSignalFilter,
     private val riskEngine: RiskManagementEngine,
-    private val optionEngine: OptionSuggestionEngine
+    private val optionEngine: OptionSuggestionEngine,
+    // === NEW engines ===
+    private val straddleEngine: StraddleEngine,
+    private val fusionAIEngine: FusionAIEngine
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState())
@@ -46,7 +54,6 @@ class HomeViewModel @Inject constructor(
     private fun loadInitialData() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
-            
             repository.getRecentCandles(
                 _uiState.value.selectedSymbol,
                 Timeframe.FIVE_MIN,
@@ -54,7 +61,7 @@ class HomeViewModel @Inject constructor(
             ).collect { historicalCandles ->
                 candles.clear()
                 candles.addAll(historicalCandles)
-                _uiState.update { it.copy(candles = candles.toList()) }
+                _uiState.update { it.copy(candles = candles.toList(), isLoading = false) }
             }
         }
 
@@ -67,12 +74,12 @@ class HomeViewModel @Inject constructor(
 
     fun selectSymbol(symbol: Symbol) {
         _uiState.update { it.copy(selectedSymbol = symbol) }
+        candles.clear()
         loadInitialData()
     }
 
     fun processNewMarketData(marketData: MarketData) {
         viewModelScope.launch {
-            // Create new candle from market data
             val newCandle = Candle(
                 timestamp = marketData.timestamp,
                 ohlc = marketData.ohlc,
@@ -81,36 +88,44 @@ class HomeViewModel @Inject constructor(
                 candleType = CandleType.BLUE
             )
 
-            // Calculate GTI candle type
             val previousCandles = candles.toList()
-            val gtiCandle = Candle(
-                timestamp = newCandle.timestamp,
-                ohlc = newCandle.ohlc,
-                volume = newCandle.volume,
-                atr = newCandle.atr,
+            val gtiCandle = newCandle.copy(
                 candleType = gtiEngine.calculateCandleType(newCandle, previousCandles)
             )
 
-            // Update candles list
             candles.add(gtiCandle)
-            if (candles.size > 100) {
-                candles.removeAt(0)
-            }
+            if (candles.size > 100) candles.removeAt(0)
 
-            // Update UI state
+            val currentCandles = candles.toList()
+            val adx = if (currentCandles.size >= 30) gtiEngine.calculateADX(currentCandles) else 0.0
+
+            // === Run Straddle Engine ===
+            val straddleResult = straddleEngine.evaluate(marketData, currentCandles)
+
+            // === Run Fusion AI ===
+            val fusionDecision = fusionAIEngine.decide(
+                latestCandles = currentCandles,
+                latestSignal = _uiState.value.activeSignal,
+                straddleResult = straddleResult,
+                adx = adx
+            )
+
+            val mode = fusionDecision.marketMode
+
             _uiState.update {
                 it.copy(
                     marketData = marketData,
-                    candles = candles.toList(),
-                    marketStatus = fakeSignalFilter.getMarketStatus(candles, settings.value),
-                    tradingStatus = fakeSignalFilter.getTradingStatus()
+                    candles = currentCandles,
+                    marketStatus = fakeSignalFilter.getMarketStatus(currentCandles, settings.value),
+                    tradingStatus = fakeSignalFilter.getTradingStatus(),
+                    straddleResult = straddleResult,
+                    fusionDecision = fusionDecision,
+                    marketMode = mode,
+                    adx = adx
                 )
             }
 
-            // Check for signals
             checkForSignal(gtiCandle, previousCandles)
-            
-            // Update history in engine
             gtiEngine.updateHistory(gtiCandle)
         }
     }
@@ -118,63 +133,47 @@ class HomeViewModel @Inject constructor(
     private fun checkForSignal(currentCandle: Candle, previousCandles: List<Candle>) {
         viewModelScope.launch {
             val filterResult = fakeSignalFilter.shouldGenerateSignal(candles, settings.value)
-            
             if (!filterResult.isAllowed) {
                 _uiState.update { it.copy(filterMessage = filterResult.message) }
                 return@launch
             }
-            
             _uiState.update { it.copy(filterMessage = null) }
 
             val signal = signalGenerator.generateSignal(
-                currentCandle,
-                previousCandles,
-                _uiState.value.selectedSymbol,
-                settings.value
+                currentCandle, previousCandles, _uiState.value.selectedSymbol, settings.value
             )
 
             if (signal != null) {
-                // Calculate SL and Target
-                val sl = riskEngine.calculateStopLoss(
-                    signal.entryPrice,
-                    settings.value,
-                    previousCandles,
-                    signal.type
-                )
-                val target = riskEngine.calculateTarget(
-                    signal.entryPrice,
-                    sl,
-                    settings.value
-                )
-
+                val sl = riskEngine.calculateStopLoss(signal.entryPrice, settings.value, previousCandles, signal.type)
+                val target = riskEngine.calculateTarget(signal.entryPrice, sl, settings.value)
                 val updatedSignal = signal.copy(stopLoss = sl, target = target)
-
-                // Save signal
                 repository.saveSignal(updatedSignal)
-                
                 _uiState.update { it.copy(activeSignal = updatedSignal) }
+
+                // Re-run fusion with the new signal
+                _uiState.value.straddleResult?.let { straddle ->
+                    val newFusion = fusionAIEngine.decide(
+                        latestCandles = candles.toList(),
+                        latestSignal = updatedSignal,
+                        straddleResult = straddle,
+                        adx = _uiState.value.adx
+                    )
+                    _uiState.update { it.copy(fusionDecision = newFusion, marketMode = newFusion.marketMode) }
+                }
             }
         }
     }
 
     fun acknowledgeSignal() {
         viewModelScope.launch {
-            _uiState.value.activeSignal?.let { signal ->
-                repository.acknowledgeSignal(signal.id)
-            }
+            _uiState.value.activeSignal?.let { repository.acknowledgeSignal(it.id) }
             _uiState.update { it.copy(activeSignal = null) }
         }
     }
 
-    fun dismissSignal() {
-        _uiState.update { it.copy(activeSignal = null) }
-    }
+    fun dismissSignal() { _uiState.update { it.copy(activeSignal = null) } }
 
-    fun updateSettings(newSettings: UserSettings) {
-        settings.value = newSettings
-    }
+    fun updateSettings(newSettings: UserSettings) { settings.value = newSettings }
 
-    fun clearError() {
-        _uiState.update { it.copy(error = null) }
-    }
+    fun clearError() { _uiState.update { it.copy(error = null) } }
 }

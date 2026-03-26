@@ -23,6 +23,8 @@ class GTIFCMService : FirebaseMessagingService() {
         when (type) {
             "gti_alert" -> showGTIAlert(data)
             "signal" -> showSignalNotification(data)
+            "straddle_alert" -> showStraddleAlert(data)
+            "conflict_alert" -> showConflictAlert(data)
         }
     }
 
@@ -89,5 +91,26 @@ class GTIFCMService : FirebaseMessagingService() {
     companion object {
         private const val GTI_ALERT_NOTIFICATION_ID = 1001
         private const val SIGNAL_NOTIFICATION_ID = 2001
+        private const val STRADDLE_NOTIFICATION_ID = 3001
+        private const val CONFLICT_NOTIFICATION_ID = 4001
+    }
+
+    private fun showStraddleAlert(data: Map<String, String>) {
+        showNotification(
+            channelId = GTIApplication.CHANNEL_GTI_ALERTS,
+            notificationId = STRADDLE_NOTIFICATION_ID,
+            title = data["title"] ?: "📊 Straddle Alert",
+            body = data["body"] ?: "High Probability Short Straddle detected"
+        )
+    }
+
+    private fun showConflictAlert(data: Map<String, String>) {
+        showNotification(
+            channelId = GTIApplication.CHANNEL_GTI_ALERTS,
+            notificationId = CONFLICT_NOTIFICATION_ID,
+            title = data["title"] ?: "⚠️ Conflict Alert",
+            body = data["body"] ?: "Conflicting signals – Avoid trading"
+        )
     }
 }
+

@@ -151,6 +151,7 @@ class SignalGeneratorEngine @Inject constructor(
         val lotSize = when (symbol) {
             Symbol.NIFTY -> 50
             Symbol.BANKNIFTY -> 15
+            Symbol.FINNIFTY -> 40
         }
         
         val roundedPrice = (price / lotSize).toInt() * lotSize

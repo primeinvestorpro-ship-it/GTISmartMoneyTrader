@@ -134,4 +134,26 @@ object AppModule {
     fun provideOptionSuggestionEngine(): OptionSuggestionEngine {
         return OptionSuggestionEngine()
     }
+
+    @Provides
+    @Singleton
+    fun provideStraddleEngine(gtiEngine: GTIIndicatorEngine): StraddleEngine {
+        return StraddleEngine(gtiEngine)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFusionAIEngine(): FusionAIEngine {
+        return FusionAIEngine()
+    }
+
+    @Provides
+    @Singleton
+    fun provideBacktestEngine(
+        gtiEngine: GTIIndicatorEngine,
+        signalGenerator: SignalGeneratorEngine,
+        straddleEngine: StraddleEngine
+    ): BacktestEngine {
+        return BacktestEngine(gtiEngine, signalGenerator, straddleEngine)
+    }
 }
