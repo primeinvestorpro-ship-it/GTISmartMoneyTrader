@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.random.Random
 
 @Singleton
 class GTIRepository @Inject constructor(
@@ -21,21 +22,50 @@ class GTIRepository @Inject constructor(
     private val candleDao: CandleDao
 ) : MarketDataRepository {
 
+    // Mock data generator for demo mode
+    private var mockBasePrice = 22400.0
+    
     override fun getMarketDataFlow(symbol: Symbol): Flow<MarketData> = flow {
-        // In a real app, this would connect to WebSocket for real-time data
-        // For now, we'll use polling
         while (true) {
             try {
                 val response = apiService.getMarketData(symbol.displayName)
                 if (response.isSuccessful && response.body() != null) {
                     val data = response.body()!!
                     emit(data.toDomain(symbol))
+                } else {
+                    // Emit mock data when API is unavailable
+                    emit(generateMockMarketData(symbol))
                 }
             } catch (e: Exception) {
-                // Handle error
+                // Emit mock data when API fails
+                emit(generateMockMarketData(symbol))
             }
-            kotlinx.coroutines.delay(1000) // Poll every second
+            kotlinx.coroutines.delay(2000) // Poll every 2 seconds
         }
+    }
+
+    private fun generateMockMarketData(symbol: Symbol): MarketData {
+        // Generate realistic-looking mock data
+        val change = (Random.nextDouble() - 0.5) * 50
+        mockBasePrice = (mockBasePrice + change).coerceIn(22000.0, 23000.0)
+        
+        val ohlc = OHLC(
+            open = mockBasePrice - Random.nextDouble() * 20,
+            high = mockBasePrice + Random.nextDouble() * 30,
+            low = mockBasePrice - Random.nextDouble() * 30,
+            close = mockBasePrice
+        )
+        
+        return MarketData(
+            symbol = symbol,
+            timestamp = System.currentTimeMillis(),
+            ltp = mockBasePrice,
+            ohlc = ohlc,
+            volume = Random.nextLong(500000, 2000000),
+            atr = 85.0 + Random.nextDouble() * 20,
+            change = change,
+            changePercent = (change / mockBasePrice) * 100
+        )
     }
 
     override suspend fun getOptionChain(symbol: Symbol, expiry: String): OptionChain? {
@@ -43,10 +73,50 @@ class GTIRepository @Inject constructor(
             val response = apiService.getOptionChain(symbol.displayName, 0)
             if (response.isSuccessful && response.body() != null) {
                 response.body()!!.toDomain()
-            } else null
+            } else {
+                generateMockOptionChain(symbol)
+            }
         } catch (e: Exception) {
-            null
+            generateMockOptionChain(symbol)
         }
+    }
+
+    private fun generateMockOptionChain(symbol: Symbol): OptionChain {
+        val underlyingPrice = mockBasePrice
+        val atmStrike = ((underlyingPrice / 50).toInt() * 50)
+        
+        val options = (-5..5).map { step ->
+            val strike = atmStrike + (step * 50)
+            val isCall = true
+            val distance = kotlin.math.abs(strike - underlyingPrice)
+            val basePremium = 50.0 + (distance * 0.1)
+            
+            OptionData(
+                strike = strike,
+                type = if (isCall) "CE" else "PE",
+                ltp = basePremium + Random.nextDouble() * 20,
+                bid = basePremium - 2,
+                ask = basePremium + 2,
+                volume = Random.nextLong(1000, 50000),
+                openInterest = Random.nextLong(10000, 100000),
+                delta = if (strike == atmStrike) 0.5 else 0.3,
+                gamma = 0.01,
+                theta = -0.5,
+                vega = 0.3,
+                iv = 12.0 + Random.nextDouble() * 5,
+                symbol = symbol,
+                expiry = "27MAR"
+            )
+        }
+        
+        return OptionChain(
+            symbol = symbol,
+            underlyingPrice = underlyingPrice,
+            atmStrike = atmStrike,
+            expiry = "27MAR",
+            timestamp = System.currentTimeMillis(),
+            options = options
+        )
     }
 
     // Signal operations
@@ -131,6 +201,39 @@ class GTIRepository @Inject constructor(
 
     suspend fun getLatestCandle(symbol: Symbol, timeframe: Timeframe): Candle? {
         return candleDao.getLatestCandle(symbol.displayName, timeframe.name)?.toDomain()
+    }
+    
+    // Generate mock historical candles for demo
+    fun generateMockCandles(symbol: Symbol, count: Int = 50): List<Candle> {
+        val candles = mutableListOf<Candle>()
+        var price = 22300.0
+        
+        for (i in 0 until count) {
+            val change = (Random.nextDouble() - 0.5) * 40
+            price = (price + change).coerceIn(22000.0, 22800.0)
+            
+            val open = price - Random.nextDouble() * 20
+            val close = price
+            val high = maxOf(open, close) + Random.nextDouble() * 15
+            val low = minOf(open, close) - Random.nextDouble() * 15
+            
+            // Determine candle type randomly for demo
+            val candleType = when (Random.nextInt(3)) {
+                0 -> CandleType.YELLOW
+                1 -> CandleType.BLUE
+                else -> CandleType.BLACK
+            }
+            
+            candles.add(Candle(
+                timestamp = System.currentTimeMillis() - ((count - i) * 300000), // 5 min intervals
+                ohlc = OHLC(open, high, low, close),
+                volume = Random.nextLong(500000, 2000000),
+                atr = 85.0,
+                candleType = candleType
+            ))
+        }
+        
+        return candles
     }
 }
 

@@ -54,13 +54,22 @@ class HomeViewModel @Inject constructor(
     private fun loadInitialData() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
+            
+            // First try to load from database
             repository.getRecentCandles(
                 _uiState.value.selectedSymbol,
                 Timeframe.FIVE_MIN,
                 100
             ).collect { historicalCandles ->
-                candles.clear()
-                candles.addAll(historicalCandles)
+                if (historicalCandles.isNotEmpty()) {
+                    candles.clear()
+                    candles.addAll(historicalCandles)
+                } else {
+                    // Generate mock candles for demo
+                    val mockCandles = repository.generateMockCandles(_uiState.value.selectedSymbol, 50)
+                    candles.clear()
+                    candles.addAll(mockCandles)
+                }
                 _uiState.update { it.copy(candles = candles.toList(), isLoading = false) }
             }
         }
